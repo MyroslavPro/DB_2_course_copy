@@ -23,4 +23,14 @@ jobs:
         run: docker build -t myroslavpro/project-rest-service-cicd-with-actions .
       - name: Publish image to docker hub
         run: docker push myroslavpro/project-rest-service-cicd-with-actions:latest
-
+        
+  deploy:
+    needs: build
+    runs-on: [aws-ec2]
+    steps:
+      - name: Pull Image from docker hub
+        run: docker pull myroslavpro/project-rest-service-cicd-with-actions:latest
+      - name: Delete the old container
+        run: docker rm -f springboot-example-container
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name project-rest-service-container myroslavpro/project-rest-service-cicd-with-actions
