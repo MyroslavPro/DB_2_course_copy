@@ -31,6 +31,6 @@ jobs:
       - name: Pull Image from docker hub
         run: docker pull myroslavpro/project-rest-service-cicd-with-actions:latest
       - name: Delete the old container
-        run: docker rm -f springboot-example-container
+        run: docker rm -f project-rest-service-container
       - name: Run docker container
         run: docker run -d -p 8080:8080 --name project-rest-service-container myroslavpro/project-rest-service-cicd-with-actions
